@@ -35,4 +35,18 @@ function createMcpServer() {
             };
         }
     );
+
+    // register dynamic user profile resource
+    server.resource(
+        'user-profile',
+        new ResourceTemplate('users://{userId}/profile', { list: undefined }),
+        async (uri, { userId }) => {
+            return {
+                contents: [{
+                    uri: uri.href,
+                    text: `Profile data for user ${userId}`,
+                }]
+            };
+        }
+    );
 }
